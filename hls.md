@@ -1,0 +1,29 @@
+### HTTP Live Streaming (HLS)
+
+#### Creating an HLS Stream
+
+From the local streams in EMS, issue the **createHLSStream** command:
+
+    createHLSStream localstreamnames=myStream targetfolder=[../webroot/path] groupname=myHlsGroup
+
+To use multiple localStreamNames using one **createHLSStream** command do the following:
+
+    createHLSStream localstreamnames=myStream1,myStream2,myStream3 targetFolder=[../webroot/path] groupName=myHlsGroup
+
+The created files will automatically save in the targetFolder path.
+
+    ../evo-webroot/
+      myHlsGroup/
+        myStream1/
+          segmentxx.ts
+          playlist.m3u8 (childplaylist)
+      playlist.m3u8 (masterplaylist)
+
+#### Playing an HLS Playlist File
+
+The corresponding link to use on Safari to play this stream would then be:
+
+    http://<EWS_IP_ADDRESS>:8888/myHlsGroup/playlist.m3u8
+
+This URL breaks down to: http:// My Web Server / HLS Group Name / Subfolder / playlist file name
+

@@ -1,0 +1,35 @@
+### Dynamic Adaptive Streaming over HTTP (DASH)
+
+#### Creating a DASH Stream
+
+From the local streams in EMS, issue the **createDASHStream** command:
+
+    createDASHStream localstreamnames=myStream targetfolder=[../webroot/path] groupname=myDashGroup
+
+To use multiple localStreamNames using one **createDASHStream** command do the following:
+
+    createDASHStream localstreamnames=myStream1,myStream2,myStream3 targetFolder=[../webroot/path] groupName=myDashGroup
+
+The created files will automatically save in the targetFolder path.
+
+    ../evo-webroot/
+      myDashGroup/
+        myStream1/
+          audio/
+            (bitrate)/
+              seg_init.mp4
+              segment_xx.m4s
+          video/
+            (bitrate)/
+              seg_init.mp4
+              segment_xx.m4s
+        manifest.mpd
+
+#### Playing a DASH Manifest File
+
+The corresponding link to play this stream would then be:
+
+    http://<EWS_IP_ADDRESS>:8888/myDashGroup/manifest.mpd
+
+This URL breaks down to: http:// My Web Server / DASH Group Name / manifest file name
+

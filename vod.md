@@ -1,0 +1,84 @@
+## Video On Demand
+
+The first critical step to getting Video on Demand (VOD) working is to place all of the media files into the appropriate directory. By default that directory is the `media` folder in the main EMS folder. If a different folder is to be used for the media files, simply modify the `config.lua` file and change the `mediaFolder` parameter with the new path.
+
+    mediaStorage = {                                        
+      recordedStreamsStorage="../media",                    
+      {                                                     
+        description="Default media storage",                
+        mediaFolder="../media", --media folder directory    
+      },                                                      
+
+### RTMP
+
+VOD to RTMP is handled automatically by EMS, simply provide the target player with the appropriate URI.
+
+For Example:
+
+    rtmp://<SERVER_ADDRESS>/vod/NameOfFile
+
+The only trick is in the name of the file. The URI needs to be formatted depending on the file type. The following rules will need to be followed:
+
+| File Type | URI Value          |
+|-----------|--------------------|
+| *.flv     | NameOfFile         |
+| *.mp4     | mp4:NameOfFile.mp4 |
+| *.mov     | mp4:NameOfFile.mov |
+| *.m4v     | mp4:NameOfFile.m4v |
+
+Therefore, if the target file is `video1.flv`, the connection URI would be:
+
+    rtmp://<SERVER_ADDRESS>/vod/video1.flv
+
+And if the target file is `video2.mov`, the connection URI would be:
+
+    rtmp://<SERVER_ADDRESS>/vod/mp4:video2.mov
+
+It is also possible to have the media files in subdirectories of the main media file:
+
+    rtmp://<SERVER_ADDRESS>/vod/mp4:subFolder1/subFolder2/video2.mov
+
+The EMS dynamically generates "Seek" and "Meta" which allow the client to "click around" in the video and play from any time-point in the video. Please note that if the original video file on the server is moved, the Seek and Meta files cannot be moved along with it. They use absolute file paths and must be deleted so that they can be regenerated for the video file again.
+
+### RTSP with RTP or MPEG-TS
+
+VOD to RTSP is also handled automatically by the EMS, simply provide the target player with the appropriate URI.
+
+For Example:
+
+    rtsp://<SERVER_ADDRESS>:5544/vod/NameOfFile
+
+Since the FLV format is specifically designed for RTMP, FLV file playback for RTSP is not supported. Any MP4 file, however, can be played with RTSP. This simplifies the format for the VOD request:
+
+    rtsp://<SERVER_ADDRESS>:5544/vod/video1.mp4
+
+or  
+
+    rtsp://<SERVER_ADDRESS>:5544/vod/video2.mov
+
+It is also possible to have the media files in subdirectories of the main media file:
+
+    rtsp://<SERVER_ADDRESS>:5544/vod/subFolder1/subFolder2/video2.mov
+
+By default, the EMS will send the video/audio payload data via RTP. If MPEG-TS is needed instead, simply specify it in the request URI:
+
+    rtsp://<SERVER_ADDRESS>:5544/vodts/video2.mov
+
+The EMS dynamically generates "Seek" and "Meta" which allow the client to "click around" in the video and play from any time-point in the video. Please note that if the original video file on the server is moved, the Seek and Meta files cannot be moved along with it. They use absolute file paths and must be deleted so that they can be regenerated for the video file again.
+
+### HLS VOD Work Around
+
+HLS is not explicitly designed for traditional VOD. It is designed to take a live stream, convert it to small files, and then serve those files to iOS devices. iOS devices (such as iPhones and iPads) can already handle the download and play many audio and video files directly from online sources.
+
+There is, however, a way to do VOD with HLS using the EMS. The trick is to create a live stream using RTMP first, and then use the new live stream for the HLS stream.
+
+Following is an example set of commands:
+
+    pullStream uri=rtmp://<SERVER_ADDRESS>/vod/mp4:video2.mov keepAlive=1 localstreamname=DummyLive
+
+    createhlsstream localstreamnames=DummyLive bandwidths=128 targetfolder=/var/evo-webroot/ groupname=hls playlisttype=rolling playlistLength=10 chunkLength=5
+
+The corresponding link to access this HLS stream would then be:
+
+    http://WebServer/hls/DummyLive/playlist.m3u8
+
