@@ -1,3 +1,9 @@
+---
+layout: post
+date:   2016-01-01 00:00:00 +0000
+permalink: transcoding
+---
+
 ## Transcoding
 
 Transcoding with the EMS allows changing the resolution of a source stream, change the bitrate of a stream, change a VP8 or MPEG2 stream into H.264 and much more. It will also allow users to create overlays on the final stream as well as crop streams.

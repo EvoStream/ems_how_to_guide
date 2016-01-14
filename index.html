@@ -1,23 +1,23 @@
-<!DOCTYPE html>
-<html>
-  <body>
-    <h2>EMS How To Guide</h2>
-    <ul>
-      <p><a href="intro.md">Introduction</a></p>
-      <p><a href="playlive.md">Playing/Retrieving Live Streams</a></p>
-      <p><a href="addlive.md">Adding Live Streams</a></p>
-      <p><a href="usingapi.md">Using the API</a></p>
-      <p><a href="abr.md">Adaptive Bitrate Streaming</a></p>
-      <p><a href="hls.md">HTTP Live Streaming (HLS)</a></p>
-      <p><a href="hds.md">HTTP Dynamic Streaming (HDS)</a></p>
-      <p><a href="mss.md">Microsoft Smooth Streaming (MSS)</a></p>
-      <p><a href="dash.md">Dynamic Adaptive Streaming over HTTP (DASH)</a></p>
-      <p><a href="websockets.md">Web Sockets</a></p>
-      <p><a href="webrtc.md">WebRTC (Web Real Time Communication)</a></p>
-      <p><a href="vod.md">Video On Demand</a></p>
-      <p><a href="recording.md">Recording Streams</a></p>
-      <p><a href="transcoding.md">Transcoding</a></p>
-    </ul>
-  </body>
-</html>
+---
+layout: default
+---
 
+<div class="home">
+
+  <h1 class="page-heading">Posts</h1>
+
+  <ul class="post-list">
+    {% for post in site.posts %}
+      <li>
+        <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
+
+        <h2>
+          <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
+        </h2>
+      </li>
+    {% endfor %}
+  </ul>
+
+  <p class="rss-subscribe">subscribe <a href="{{ "/feed.xml" | prepend: site.baseurl }}">via RSS</a></p>
+
+</div>
