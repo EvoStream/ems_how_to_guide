@@ -1,10 +1,9 @@
 ---
 layout: post
+title: Web Sockets
 date:   2016-01-01 00:00:00 +0000
 permalink: websockets
 ---
-
-### Web Sockets
 
 By default, EMS accepts stream requests through web sockets and can be customized or disabled through the `config.lua` file.
 

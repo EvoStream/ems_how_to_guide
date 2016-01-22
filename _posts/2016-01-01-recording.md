@@ -1,10 +1,9 @@
 ---
 layout: post
+title: Recording Streams
 date:   2016-01-01 00:00:00 +0000
 permalink: recording
 ---
-
-## Recording Streams
 
 The EMS is able to record streams as MP4, FLV or MPEG Transport Stream (TS) files. Any incoming stream type can be recorded. Recording a stream can be done using the following steps:
 
