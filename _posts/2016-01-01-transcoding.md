@@ -16,7 +16,7 @@ Transcoding requires **SIGNIFICANT** computing resources and will severely impac
 A. To transcode an RTMP source into different video bitrates and send back to EMS:
 
 ``` 
-transcode source=rtmp://<RTMP server>/live/streamname groupName=group videoBitrates=100k,200k,300k destinations=stream100,stream200,stream300
+transcode source=rtmp://<stream_source> groupName=group videoBitrates=100k,200k,300k destinations=stream100,stream200,stream300
 ```
 
 
@@ -24,7 +24,7 @@ transcode source=rtmp://<RTMP server>/live/streamname groupName=group videoBitra
 B. To transcode an existing EMS stream into a different audio channel count and send to an RTMP server:
 
 ``` 
-transcode source=stream1 groupName=group audioBitrates=copy audioChannelsCounts=1 destinations=rtmp://<RTMP server 2> targetStreamNames=streamMono
+transcode source=rtmp://<stream_source> groupName=group audioBitrates=copy audioChannelsCounts=1 destinations=rtmp://<RTMP_server_2> targetStreamNames=streamMono
 ```
 
 
@@ -37,16 +37,16 @@ transcode source=file://C:\videos\test.mp4 groupName=group videoBitrates=100k au
 
 
 
-D. To stop a running transcoding process(es):
+D. To force TCP for inbound RTSP:
 
 ``` 
-removeConfig groupName=group
+transcode source=rtmp://<RTMP server>/live/streamname groupName=group videoBitrates=copy videoSizes=360x200 $EMS_RTSP_TRANSPORT=tcp
 ```
 
 
 
-E. To force TCP for inbound RTSP:
+E. To stop a running transcoding process(es):
 
 ``` 
-transcode source=rtsp://<RTSP server>/live/streamname groupName=group videoBitrates=copy videoSizes=360x200 $EMS_RTSP_TRANSPORT=tcp
+removeConfig groupName=group
 ```
