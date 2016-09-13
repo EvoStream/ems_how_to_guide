@@ -32,7 +32,7 @@ transcode source=rtmp://<stream_source> groupName=group audioBitrates=copy audio
 C. To use files as input and/or output:
 
 ``` 
-transcode source=file://C:\videos\test.mp4 groupName=group videoBitrates=100k audioBitrates=copy destinations=file://C:\videos\out.mp4
+transcode source=file://C:\videos\test.mp4 groupName=group videoBitrates=100k audioBitrates=copy destinations=file://C:\videos\out.mp4 keepAlive=0
 ```
 
 
