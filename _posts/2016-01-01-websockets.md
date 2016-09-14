@@ -25,7 +25,7 @@ A test page is included on the demo folder of the EMS to demonstrate this featur
 
 
 
-## **Parts of EvoStream WebSocket Video Demo Page:**
+**Parts of EvoStream WebSocket Video Demo Page:**
 
 ``` 
 WS URI:              Set the URI with EMS IP Address : WebSocket port  
